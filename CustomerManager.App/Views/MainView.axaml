@@ -1,0 +1,15 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:CustomerManager.App.ViewModels"
+             x:Class="CustomerManager.App.Views.MainView"
+             x:DataType="vm:MainViewModel">
+
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Left" Width="200" Spacing="8" Margin="12">
+            <TextBlock FontSize="18"  Text="KundenManager" />
+            <Button Content="Kunden" Command="{Binding GoCustomersCommand}" />
+        </StackPanel>
+
+        <ContentControl Content="{Binding CurrentView}" Margin="12"/>
+    </DockPanel>
+</UserControl>

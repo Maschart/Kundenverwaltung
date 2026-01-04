@@ -1,0 +1,35 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:CustomerManager.App.ViewModels"
+             x:Class="CustomerManager.App.Views.CustomerEditView"
+             x:DataType="vm:CustomerEditViewModel">
+
+    <StackPanel Spacing="10" Width="520" Background="Transparent" IsHitTestVisible="True">
+        <TextBlock FontSize="20" Text="Kunde bearbeiten/anlegen" />
+
+        <TextBlock Text="Name (Pflicht)" />
+        <TextBox Text="{Binding Name}"
+                 Width="300"
+                 MinHeight="30"/>
+
+        <TextBlock Text="Email" />
+        <Border  Padding="2">
+            <TextBox Text="{Binding Email}"
+                     Width="300"
+                     MinHeight="30"
+                     />
+        </Border>
+        
+        <TextBlock Text="Telefon" />
+        <TextBox Text="{Binding Phone}"
+                 Width="300"
+                 MinHeight="30"/>
+
+        <TextBlock Text="{Binding Error}" />
+
+        <StackPanel Orientation="Horizontal" Spacing="10">
+            <Button Content="Speichern" Command="{Binding SaveCommand}" />
+            <Button Content="Abbrechen" Command="{Binding CancelCommand}" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>
