@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="CustomerManager.App/App.axaml" value="CustomerManager.App/CustomerManager.App.csproj" />
+        <entry key="CustomerManager.App/Views/CustomerEditView.axaml" value="CustomerManager.App/CustomerManager.App.csproj" />
+        <entry key="CustomerManager.App/Views/CustomersView.axaml" value="CustomerManager.App/CustomerManager.App.csproj" />
+        <entry key="CustomerManager.App/Views/MainView.axaml" value="CustomerManager.App/CustomerManager.App.csproj" />
+        <entry key="CustomerManager.App/Views/MainWindow.axaml" value="CustomerManager.App/CustomerManager.App.csproj" />
+      </map>
+    </option>
+  </component>
+</project>

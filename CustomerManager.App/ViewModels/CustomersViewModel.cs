@@ -32,7 +32,7 @@ public partial class CustomersViewModel : ViewModelBase
 
     // CommunityToolkit: Methode "LoadAsync" => Command heißt i.d.R. "LoadCommand"
     [RelayCommand]
-    private async Task LoadAsync()
+    public async Task LoadAsync()
     {
         Items.Clear();
         var all = await _repo.GetAllAsync();

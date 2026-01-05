@@ -8,20 +8,20 @@
         <TextBlock FontSize="20" Text="Kunde bearbeiten/anlegen" />
 
         <TextBlock Text="Name (Pflicht)" />
-        <TextBox Text="{Binding Name}"
+        <TextBox Text="{Binding Name, Mode=TwoWay}"
                  Width="300"
                  MinHeight="30"/>
 
         <TextBlock Text="Email" />
         <Border  Padding="2">
-            <TextBox Text="{Binding Email}"
+            <TextBox Text="{Binding Email, Mode=TwoWay}"
                      Width="300"
                      MinHeight="30"
                      />
         </Border>
         
         <TextBlock Text="Telefon" />
-        <TextBox Text="{Binding Phone}"
+        <TextBox Text="{Binding Phone, Mode=TwoWay}"
                  Width="300"
                  MinHeight="30"/>
 

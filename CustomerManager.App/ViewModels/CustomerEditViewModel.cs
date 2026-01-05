@@ -50,18 +50,30 @@ public partial class CustomerEditViewModel : ViewModelBase
             return;
         }
 
-        var entity = new Customer
+        try
         {
-            Id = _editId ?? 0,
-            Name = Name.Trim(),
-            Email = string.IsNullOrWhiteSpace(Email) ? null : Email.Trim(),
-            Phone = string.IsNullOrWhiteSpace(Phone) ? null : Phone.Trim(),
-        };
+            var entity = new Customer
+            {
+                Id = _editId ?? 0,
+                Name = Name.Trim(),
+                Email = string.IsNullOrWhiteSpace(Email) ? null : Email.Trim(),
+                Phone = string.IsNullOrWhiteSpace(Phone) ? null : Phone.Trim(),
+            };
 
-        if (_editId == null) await _repo.AddAsync(entity);
-        else await _repo.UpdateAsync(entity);
+            if (_editId == null)
+                await _repo.AddAsync(entity);
+            else
+                await _repo.UpdateAsync(entity);
 
-        _nav.Navigate(new CustomersViewModel(_nav, _repo));
+            var listVm = new CustomersViewModel(_nav, _repo);
+            _nav.Navigate(listVm);
+            await listVm.LoadAsync();
+        }
+        catch (Exception ex)
+        {
+            Error = "Fehler beim Speichern: " + ex.Message;
+            
+        }
     }
 
     [RelayCommand]
