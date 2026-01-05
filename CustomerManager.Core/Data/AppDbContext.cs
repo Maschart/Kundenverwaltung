@@ -11,11 +11,18 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.Entity<Customer>()
             .Property(c => c.Name)
             .IsRequired();
 
+        // NUR die Kombination ist eindeutig
         modelBuilder.Entity<Customer>()
-            .HasIndex(c => c.Name);
+            .HasIndex(c => new { c.Name, c.Email, c.Phone })
+            .IsUnique();
     }
+
+
+
 }

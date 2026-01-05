@@ -1,12 +1,41 @@
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using CustomerManager.Core.Data;
 using CustomerManager.Core.Models;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace CustomerManager.Core.Services;
 
 public class CustomerRepository
 {
     private readonly DbContextOptions<AppDbContext> _options;
+
+    public async Task<bool> ExistsDuplicateAsync(int? excludeId, string name, string? email, string? phone)
+    {
+        // Nur prüfen, wenn alle drei Werte vorhanden sind
+        if (string.IsNullOrWhiteSpace(name) ||
+            string.IsNullOrWhiteSpace(email) ||
+            string.IsNullOrWhiteSpace(phone))
+            return false;
+
+        await using var db = new AppDbContext(_options);
+
+        var nameNorm = name.Trim();
+        var emailNorm = email.Trim().ToLower();
+        var phoneNorm = phone.Trim();
+
+        return await db.Customers.AnyAsync(c =>
+            (excludeId == null || c.Id != excludeId.Value) &&
+            c.Name == nameNorm &&
+            c.Email != null && c.Email.ToLower() == emailNorm &&
+            c.Phone == phoneNorm
+        );
+    }
+
+
+
+
+    
 
     public CustomerRepository(DbContextOptions<AppDbContext> options)
     {

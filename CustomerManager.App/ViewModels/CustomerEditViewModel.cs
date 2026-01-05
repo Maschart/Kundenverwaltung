@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
 
+
 namespace CustomerManager.App.ViewModels;
 
 public partial class CustomerEditViewModel : ViewModelBase
@@ -45,31 +46,43 @@ public partial class CustomerEditViewModel : ViewModelBase
     {
         Error = null;
 
-        if (string.IsNullOrWhiteSpace(Name))
+
+        if (string.IsNullOrWhiteSpace(Name) ||
+            string.IsNullOrWhiteSpace(Email) ||
+            string.IsNullOrWhiteSpace(Phone))
         {
-            Error = "Name darf nicht leer sein.";
+            Error = "Bitte Name, Email und Telefon ausfüllen.";
             return;
         }
-        // Name darf keine Zahlen enthalten
+
+
         if (NameHasDigitRegex.IsMatch(Name))
         {
             Error = "Name darf keine Zahlen enthalten.";
             return;
         }
 
-        // Email: nur prüfen, wenn ausgefüllt
-        if (!string.IsNullOrWhiteSpace(Email) && !EmailRegex.IsMatch(Email.Trim()))
+
+        if (!EmailRegex.IsMatch(Email.Trim()))
         {
             Error = "Bitte eine gültige Email eingeben (z.B. name@mail.de).";
             return;
         }
 
-    // Telefon: nur prüfen, wenn ausgefüllt
-        if (!string.IsNullOrWhiteSpace(Phone) && !PhoneRegex.IsMatch(Phone.Trim()))
+
+        if (!PhoneRegex.IsMatch(Phone.Trim()))
         {
             Error = "Telefon darf nur Zahlen und Zeichen wie + - ( ) enthalten.";
             return;
         }
+
+        var hasDup = await _repo.ExistsDuplicateAsync(_editId, Name, Email, Phone);
+        if (hasDup)
+        {
+            Error = "Diesen Kunden (Name+Email+Telefon) gibt es bereits.";
+            return;
+        }
+
 
         try
         {
