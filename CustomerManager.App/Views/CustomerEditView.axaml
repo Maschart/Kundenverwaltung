@@ -25,7 +25,7 @@
                  Width="300"
                  MinHeight="30"/>
 
-        <TextBlock Text="{Binding Error}" />
+        <TextBlock Text="{Binding Error}" Foreground="Red" MinHeight="24"/>
 
         <StackPanel Orientation="Horizontal" Spacing="10">
             <Button Content="Speichern" Command="{Binding SaveCommand}" />

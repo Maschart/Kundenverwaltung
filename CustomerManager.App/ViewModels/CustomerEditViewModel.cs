@@ -4,6 +4,7 @@ using CustomerManager.Core.Models;
 using CustomerManager.Core.Services;
 using System;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 
 namespace CustomerManager.App.ViewModels;
@@ -49,6 +50,26 @@ public partial class CustomerEditViewModel : ViewModelBase
             Error = "Name darf nicht leer sein.";
             return;
         }
+        // Name darf keine Zahlen enthalten
+        if (NameHasDigitRegex.IsMatch(Name))
+        {
+            Error = "Name darf keine Zahlen enthalten.";
+            return;
+        }
+
+        // Email: nur prüfen, wenn ausgefüllt
+        if (!string.IsNullOrWhiteSpace(Email) && !EmailRegex.IsMatch(Email.Trim()))
+        {
+            Error = "Bitte eine gültige Email eingeben (z.B. name@mail.de).";
+            return;
+        }
+
+    // Telefon: nur prüfen, wenn ausgefüllt
+        if (!string.IsNullOrWhiteSpace(Phone) && !PhoneRegex.IsMatch(Phone.Trim()))
+        {
+            Error = "Telefon darf nur Zahlen und Zeichen wie + - ( ) enthalten.";
+            return;
+        }
 
         try
         {
@@ -75,6 +96,15 @@ public partial class CustomerEditViewModel : ViewModelBase
             
         }
     }
+    private static readonly Regex EmailRegex =
+        new(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.Compiled);
+
+    private static readonly Regex PhoneRegex =
+        new(@"^[0-9+\-()\s]*$", RegexOptions.Compiled);
+
+    private static readonly Regex NameHasDigitRegex =
+        new(@"\d", RegexOptions.Compiled);
+
 
     [RelayCommand]
     private void Cancel() => _nav.Navigate(new CustomersViewModel(_nav, _repo));
