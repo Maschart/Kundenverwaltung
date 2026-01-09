@@ -12,7 +12,7 @@ public class CustomerRepository
 
     public async Task<bool> ExistsDuplicateAsync(int? excludeId, string name, string? email, string? phone)
     {
-        // Nur prüfen, wenn alle drei Werte vorhanden sind
+        
         if (string.IsNullOrWhiteSpace(name) ||
             string.IsNullOrWhiteSpace(email) ||
             string.IsNullOrWhiteSpace(phone))

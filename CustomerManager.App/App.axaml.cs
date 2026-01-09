@@ -20,7 +20,7 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            // DB im Arbeitsverzeichnis (einfach für Abgabe)
+            
             var baseDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             var folder = Path.Combine(baseDir, "CustomerManager");
             Directory.CreateDirectory(folder);

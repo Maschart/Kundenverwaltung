@@ -30,7 +30,7 @@ public partial class CustomersViewModel : ViewModelBase
         _ = LoadAsync();
     }
 
-    // CommunityToolkit: Methode "LoadAsync" => Command heißt i.d.R. "LoadCommand"
+   
     [RelayCommand]
     public async Task LoadAsync()
     {
